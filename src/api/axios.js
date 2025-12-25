@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://3.111.36.255:8080", // ✅ HTTPS ONLY
+  baseURL: "https://peopleix.duckdns.org", // ✅ HTTPS ONLY
   headers: {
     "Content-Type": "application/json",
   },

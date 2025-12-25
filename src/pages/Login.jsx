@@ -27,7 +27,7 @@ export default function Login() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://3.111.36.255:8080/api/users/login",
+        " https://peopleix.duckdns.org/api/users/login",
         {
           email: values.username,
           pswd: values.password,
