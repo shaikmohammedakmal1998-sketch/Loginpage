@@ -1,0 +1,50 @@
+/* ROOT */
+.login-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* LEFT PANEL (desktop only) */
+.left-panel {
+  flex: 1;
+  background: linear-gradient(135deg, #020024, #090979, #00d4ff);
+  color: white;
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.login-card {
+  width: 360px;
+}
+
+/* ✅ MOBILE FIX (MOST IMPORTANT PART) */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  /* 🔥 THIS LINE HIDES THE BLUE BLOCK */
+  .left-panel {
+    display: none !important;
+  }
+
+  .right-panel {
+    min-height: 100vh;
+  }
+
+  .login-card {
+    width: 90%;
+    max-width: 360px;
+  }
+}
