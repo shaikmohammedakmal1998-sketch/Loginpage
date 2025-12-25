@@ -20,29 +20,28 @@ const { useBreakpoint } = Grid;
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
-  const screens = useBreakpoint(); // 👈 breakpoint detector
+  const screens = useBreakpoint() || {};
 
   const onFinish = async (values) => {
     try {
       setLoading(true);
 
       const response = await axios.post(
-        " https://peopleix.duckdns.org/api/users/login",
+        "https://peopleix.duckdns.org/api/users/login",
         {
           email: values.username,
           pswd: values.password,
         }
       );
 
-      const successMsg =
-        response.data?.message || "Login successful";
-
       localStorage.setItem(
         "loggedUser",
         JSON.stringify(response.data)
       );
 
-      message.success(successMsg);
+      message.success(
+        response.data?.message || "Login successful"
+      );
     } catch (error) {
       message.error(
         error.response?.data?.message ||
@@ -55,23 +54,23 @@ export default function Login() {
 
   return (
     <Row style={{ minHeight: "100vh" }}>
-      {/* ✅ LEFT BRAND SECTION (ONLY md+) */}
-      {screens.md && (
+      {/* LEFT BRAND (Desktop only) */}
+      {screens.md === true && (
         <Col
           span={12}
           style={{
             background: "#1677ff",
             color: "#fff",
             display: "flex",
-            flexDirection: "column",
             justifyContent: "center",
+            flexDirection: "column",
           }}
         >
           <div style={{ padding: "0 80px" }}>
-            <Title style={{ color: "#fff", marginBottom: 8 }}>
+            <Title style={{ color: "#fff" }}>
               PeopleiX
             </Title>
-            <Text style={{ color: "#e6f4ff", fontSize: 18 }}>
+            <Text style={{ color: "#e6f4ff" }}>
               Employee Experience,
               <br />
               Simplified
@@ -80,7 +79,7 @@ export default function Login() {
         </Col>
       )}
 
-      {/* RIGHT LOGIN SECTION */}
+      {/* LOGIN */}
       <Col
         xs={24}
         md={12}
@@ -91,60 +90,41 @@ export default function Login() {
           padding: 24,
         }}
       >
-        <Card
-          style={{
-            width: "100%",
-            maxWidth: 380,
-            borderRadius: 12,
-          }}
-        >
-          <Flex vertical gap={8} align="center">
-            <Title level={4}>Login to your account</Title>
-          </Flex>
+        <Card style={{ width: "100%", maxWidth: 380 }}>
+          <Title level={4} align="center">
+            Login to your account
+          </Title>
 
           <Form layout="vertical" onFinish={onFinish}>
             <Form.Item
               label="Email or Phone"
               name="username"
-              rules={[
-                {
-                  required: true,
-                  message:
-                    "Please enter email or phone number",
-                },
-              ]}
+              rules={[{ required: true }]}
             >
               <Input
                 prefix={<UserOutlined />}
-                placeholder="Email or phone number"
+                placeholder="Email or phone"
               />
             </Form.Item>
 
             <Form.Item
               label="Password"
               name="password"
-              rules={[
-                {
-                  required: true,
-                  message:
-                    "Please enter your password",
-                },
-              ]}
+              rules={[{ required: true }]}
             >
               <Input.Password
                 prefix={<LockOutlined />}
-                placeholder="Enter your password"
               />
             </Form.Item>
 
             <Button
               type="primary"
-              htmlType="submit"
               block
-              loading={loading}
               size="large"
+              htmlType="submit"
+              loading={loading}
             >
-              Login now
+              Login
             </Button>
           </Form>
         </Card>
